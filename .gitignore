@@ -7,4 +7,5 @@ out/
 *.zip
 *.rar
 *.pdf
+.gradle
 
