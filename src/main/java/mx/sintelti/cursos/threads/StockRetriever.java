@@ -9,40 +9,27 @@ import java.math.BigDecimal;
 
 public class StockRetriever implements  Runnable {
 
+    private String company;
+
     public StockRetriever(String company) {
         this.company = company;
     }
 
-    private String company;
-
-    public BigDecimal getStockPrice() throws IOException {
-
+    private BigDecimal getStockPrice() throws IOException {
         Stock stock = YahooFinance.get(company);
         BigDecimal price = stock.getQuote().getPrice();
         TestStock.sumaTotal = TestStock.sumaTotal.add(price);
         System.out.println(stock.getSymbol() + "-"+stock.getQuote().getPrice());
         return price;
-
     }
 
     @Override
     public  void run () {
-
         try {
             getStockPrice();
         }
         catch (IOException e){
-
+            System.out.println("ERROR DE DANN");
         }
-
-
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
     }
 }
