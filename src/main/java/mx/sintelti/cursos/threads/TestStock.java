@@ -9,15 +9,18 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class TestStock {
-    public static void main(String[] args) throws IOException {
+    public static BigDecimal sumaTotal = new BigDecimal("0.00");
+    public static void main(String[] args) throws IOException
+
+    {
         long inicio = System.nanoTime();
         List<String> lista = leerArchivo();
-        BigDecimal sumaTotal = new BigDecimal("0.00");
-        StockRetriever stockRetriever = new StockRetriever("FB");
-        System.out.println("FB" + " " + stockRetriever.getStockPrice());
+        //StockRetriever stockRetriever = new StockRetriever(lista);
+        //System.out.println("FB" + " " + stockRetriever.getStockPrice());
         for (String x : lista) {
             StockRetriever iterar = new StockRetriever(x);
-            sumaTotal = sumaTotal.add(iterar.getStockPrice());
+           //sumaTotal = sumaTotal.add(iterar.getStockPrice());
+            new Thread(iterar, String.valueOf(x)).start();
         }
         System.out.println("MARKET CAP: " + sumaTotal);
         long fin = System.nanoTime();

@@ -7,7 +7,8 @@ import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 import java.math.BigDecimal;
 
-public class StockRetriever {
+public class StockRetriever implements  Runnable {
+
     public StockRetriever(String company) {
         this.company = company;
     }
@@ -18,7 +19,23 @@ public class StockRetriever {
 
         Stock stock = YahooFinance.get(company);
         BigDecimal price = stock.getQuote().getPrice();
+        TestStock.sumaTotal = TestStock.sumaTotal.add(price);
+        System.out.println(stock.getSymbol() + "-"+stock.getQuote().getPrice());
         return price;
+
+    }
+
+    @Override
+    public  void run () {
+
+        try {
+            getStockPrice();
+        }
+        catch (IOException e){
+
+        }
+
+
     }
 
     public String getCompany() {
